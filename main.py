@@ -1,3 +1,4 @@
+import random
 class Airport:
     def __init__(self, id, cord, type):
         self.id = id
@@ -6,12 +7,11 @@ class Airport:
         self.connected_airport = []
     def __repr__(self):
         return f"{self.id}, {self.cord}, {self.type}, {self.connected_airport}"
-
 class Airport_manager:
     def __init__(self):
         self.airports = []
         self.routes = []
-
+        self.cost = []
     def show_airports(self):
         return self.airports
 
@@ -19,10 +19,17 @@ class Airport_manager:
         for each in self.airports:
             return each.connected_airport
 
+    def create_route(self):
+        for i in range(len(self.airports)):
+            for j in range(len(self.airports)):
+                if i != j:
+                    self.add_route(self.airports[i], self.airports[j])
+
     def add_route(self, departure, destination):
         if departure in self.airports:
             if destination in self.airports:
                 self.routes.append([departure, destination])
+                self.cost.append(random.randint(1,10))
         else:
             return False
 
@@ -56,6 +63,9 @@ class Airport_manager:
                 i.cord = cord
                 i.type = type
             return tmp
+    def cost_calculation(self, departure, destination):
+        pass
+    #im still lazy asf
 
 am = Airport_manager()
 am.add_Airport("A", "x", "X")
